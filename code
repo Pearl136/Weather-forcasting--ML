@@ -1,0 +1,51 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+
+# 1. Generate synthetic weather dataset
+np.random.seed(42)
+num_samples = 1000
+
+temperature = np.random.normal(loc=25, scale=5, size=num_samples)  # Target
+humidity = np.clip(100 - (temperature + np.random.normal(0, 5, num_samples)), 20, 100)
+windspeed = np.random.uniform(0, 20, size=num_samples)
+pressure = np.random.normal(loc=1010, scale=5, size=num_samples)
+cloud_cover = np.random.uniform(0, 100, size=num_samples)
+
+df = pd.DataFrame({
+    "Temperature": temperature,
+    "Humidity": humidity,
+    "WindSpeed": windspeed,
+    "Pressure": pressure,
+    "CloudCover": cloud_cover
+})
+
+# 2. Define features and target
+features = ["Humidity", "WindSpeed", "Pressure", "CloudCover"]
+target = "Temperature"
+X = df[features]
+y = df[target]
+
+# 3. Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 4. Train the model
+model = RandomForestRegressor(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+# 5. Predict
+y_pred = model.predict(X_test)
+
+# 6. Plot: Actual vs Predicted
+plt.figure(figsize=(6, 4))
+plt.scatter(y_test, y_pred, color='skyblue', alpha=0.6, label='Predictions')
+plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'r--', linewidth=2, label='Ideal Prediction Line')
+plt.xlabel("Actual Temperature")
+plt.ylabel("Predicted Temperature")
+plt.title("Actual vs Predicted Temperature (Large Dataset)")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
