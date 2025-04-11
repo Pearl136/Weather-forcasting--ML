@@ -1,4 +1,4 @@
-# w
+ w
 The code generates a synthetic weather dataset with 10 sample entries (rows) and 5 attributes (columns) and saves it as a CSV file. The dataset includes weather-related features like temperature, humidity, wind speed, pressure, and cloud cover.
 *Code Breakdown:
 Imports:
