@@ -1,0 +1,16 @@
+import pandas as pd
+
+# Sample data for weather
+sample_data = {
+    "Temperature": [27.48, 20.31, 23.24, 28.62, 29.76, 22.83, 24.17, 18.66, 29.38, 27.92],
+    "Humidity": [72.94, 88.52, 73.34, 64.49, 65.58, 74.31, 71.02, 89.13, 66.76, 72.03],
+    "WindSpeed": [12.14, 18.62, 0.47, 16.60, 4.57, 1.85, 7.41, 0.35, 11.06, 3.78],
+    "Pressure": [1012.92, 1003.24, 1013.15, 1004.94, 1016.21, 1008.68, 1003.62, 1010.22, 1009.93, 1013.75],
+    "CloudCover": [50.43, 35.23, 70.18, 38.14, 92.97, 3.94, 34.12, 98.47, 77.24, 57.61]
+}
+
+# Convert to DataFrame
+sample_df = pd.DataFrame(sample_data)
+
+# Save to CSV
+sample_df.to_csv("sample_weather_data.csv", index=False)
